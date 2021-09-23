@@ -1,5 +1,4 @@
 import os
-import sys
 from pprint import pprint
 import configparser
 import logging

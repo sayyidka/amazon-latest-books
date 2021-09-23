@@ -1,6 +1,6 @@
 __pycache__/
 files/*
 venv
-*.log
+logs
 *.toml
 pipeline.conf
