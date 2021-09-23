@@ -23,10 +23,8 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("app")
-
 config = configparser.ConfigParser()
 config.read("pipeline.conf")
-
 
 @timer
 def extract():
@@ -101,7 +99,6 @@ def load():
     db_host = config.get("postgres_credentials", "db_host")
     db_port = config.get("postgres_credentials", "db_port")
     Manager = SQLManager(db_name, db_user, db_password, db_host, db_port)
-
     # Create table if not exists
     Table(
         "books",
