@@ -115,7 +115,7 @@ def load():
     Manager.metadata.create_all(checkfirst=True)
 
     # Insert csv into table
-    df.to_sql("books", Manager.engine, if_exists="replace", index=False)
+    df.to_sql("books", Manager.engine, if_exists="replace", index=False, method="multi")
     logger.info("Dataframe loaded to DB !")
 
 
