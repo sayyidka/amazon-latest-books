@@ -1,4 +1,5 @@
 import os
+import sys
 from pprint import pprint
 import configparser
 import logging
@@ -7,7 +8,8 @@ import numpy as np
 import pandas as pd
 from botocore.exceptions import ClientError
 import boto3
-from sqlalchemy import Table, Column, Integer, Float, String
+from sqlalchemy import Table, Column, Integer, Float, String, DateTime
+from sqlalchemy.sql.expression import null
 
 from helpers import timer
 from scraper import scrape
@@ -76,6 +78,8 @@ def transform():
         pd.to_numeric(df["comments"], errors="coerce").fillna(0.0).astype(int)
     )
 
+    df["updated_at"] = pd.to_datetime("now")
+
     # Load in another S3 bucket (latest-books-cleaned)
     filename = "books_latest_cleaned.csv"
     filepath = f"files/{filename}"
@@ -99,6 +103,7 @@ def load():
     db_host = config.get("postgres_credentials", "db_host")
     db_port = config.get("postgres_credentials", "db_port")
     Manager = SQLManager(db_name, db_user, db_password, db_host, db_port)
+    
     # Create table if not exists
     Table(
         "books",
@@ -111,6 +116,7 @@ def load():
         Column("image", String, nullable=True),
         Column("rating", Float, nullable=True),
         Column("comments", Integer, nullable=True),
+        Column("updated_at", DateTime, nullable=True)
     )
     Manager.metadata.create_all(checkfirst=True)
 
