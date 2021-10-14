@@ -1,5 +1,5 @@
 # Amazon latest books
-ETL pipeline example processing Amazon latest books releases data in France.
+ETL pipeline example processing Amazon 50 latest books releases data in France.
 
 ## Architecture overview
 ![amazon-latest-books-schema drawio](https://user-images.githubusercontent.com/38778970/137316506-f30d840f-c47e-4a6d-84c4-16a77b7bbf5e.png)
